@@ -1,13 +1,18 @@
+import {useState} from "react";
 import Board from "./components/Board";
-
-const SAMPLE_CARDS = Array.from({length: 12}, (_, index) => ({
-  id: index,
-  type: "pair",
-  symbol: String(index + 1),
-  pairKey: String(index + 1),
-}));
+import {createDeck} from "./game/deck";
 
 function App() {
+  const [cards] = useState(() => createDeck());
+  const [openIds, setOpenIds] = useState([]);
+  function handleFlip(id) {
+    setOpenIds((previousIds) =>
+      previousIds.includes(id)
+        ? previousIds.filter((openId) => openId !== id)
+        : [...previousIds, id],
+    );
+  }
+
   return (
     <main className="min-h-screen bg-slate-900 p-6 text-white">
       <div className="mx-auto max-w-xl">
@@ -15,10 +20,10 @@ function App() {
           Memory Blast
         </h1>
         <Board
-          cards={SAMPLE_CARDS}
-          flippedIds={[2]}
-          matchedIds={[5]}
-          onFlip={() => {}}
+          cards={cards}
+          flippedIds={openIds}
+          matchedIds={[]}
+          onFlip={handleFlip}
         />
       </div>
     </main>
