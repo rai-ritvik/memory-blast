@@ -1,18 +1,7 @@
-import {useState} from "react";
 import Board from "./components/Board";
-import {createDeck} from "./game/deck";
-
+import {useMemoryGame} from "./hooks/useMemoryGame";
 function App() {
-  const [cards] = useState(() => createDeck());
-  const [openIds, setOpenIds] = useState([]);
-  function handleFlip(id) {
-    setOpenIds((previousIds) =>
-      previousIds.includes(id)
-        ? previousIds.filter((openId) => openId !== id)
-        : [...previousIds, id],
-    );
-  }
-
+  const game = useMemoryGame();
   return (
     <main className="min-h-screen bg-slate-900 p-6 text-white">
       <div className="mx-auto max-w-xl">
@@ -20,14 +9,13 @@ function App() {
           Memory Blast
         </h1>
         <Board
-          cards={cards}
-          flippedIds={openIds}
-          matchedIds={[]}
-          onFlip={handleFlip}
+          cards={game.cards}
+          flippedIds={game.flippedIds}
+          matchedIds={game.matchedIds}
+          onFlip={game.flipCard}
         />
       </div>
     </main>
   );
 }
-
 export default App;
