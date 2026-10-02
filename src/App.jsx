@@ -1,10 +1,12 @@
 import Board from "./components/Board";
+
 const SAMPLE_CARDS = Array.from({length: 12}, (_, index) => ({
   id: index,
   type: "pair",
   symbol: String(index + 1),
   pairKey: String(index + 1),
 }));
+
 function App() {
   return (
     <main className="min-h-screen bg-slate-900 p-6 text-white">
@@ -22,4 +24,5 @@ function App() {
     </main>
   );
 }
+
 export default App;
