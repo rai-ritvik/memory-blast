@@ -65,6 +65,12 @@ export function gameReducer(state, action) {
         case ACTIONS.FLIP_CARD:
             return flipCard(state, action.id);
 
+        case ACTIONS.CLEAR_FLIPPED:
+            if (state.flippedIds.length != 2) {
+                return state;
+            }
+            return { ...state, flippedIds: [] };
+
         default:
             return state;
     }
