@@ -8,6 +8,9 @@ function App() {
         <h1 className="mb-6 text-center text-4xl font-extrabold">
           Memory Blast
         </h1>
+        <p className="mb-4 text-center text-xl">
+          Time: {game.timeLeft}s · Moves: {game.moves}
+        </p>
         <Board
           cards={game.cards}
           flippedIds={game.flippedIds}
