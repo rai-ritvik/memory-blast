@@ -12,7 +12,7 @@ export function useMemoryGame() {
     const [state, dispatch] = useReducer(gameReducer, null, () =>
         createInitialState(createDeck()),
     );
-    const { status, flippedIds } = state;
+    const { status, gameId, flippedIds, matchedIds } = state;
 
     useEffect(() => {
         if (status !== GAME_STATUS.PLAYING) {
@@ -24,7 +24,7 @@ export function useMemoryGame() {
         }, TICK_INTERVAL_MS);
 
         return () => clearInterval(intervalId);
-    }, [status]);
+    }, [status, gameId]);
 
     useEffect(() => {
         if (status !== GAME_STATUS.PLAYING || flippedIds.length !== 2) {
@@ -42,5 +42,14 @@ export function useMemoryGame() {
         dispatch({ type: ACTIONS.FLIP_CARD, id });
     }
 
-    return { ...state, flipCard };
+    function restart() {
+        dispatch({ type: ACTIONS.NEW_GAME, cards: createDeck() });
+    }
+
+    return {
+        ...state,
+        pairsFound: matchedIds.length / 2,
+        flipCard,
+        restart,
+    };
 }

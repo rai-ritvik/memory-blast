@@ -5,10 +5,12 @@ import {
     GAME_DURATION_SECONDS,
     GAME_STATUS,
     TIME_BONUS_SECONDS,
+    TOTAL_PAIR_CARDS,
 } from './constants';
 
-export function createInitialState(cards) {
+export function createInitialState(cards, gameId = 0) {
     return {
+        gameId,
         cards,
         flippedIds: [],
         matchedIds: [],
@@ -73,6 +75,10 @@ function flipCard(state, id) {
                 matchedIds: [...next.matchedIds, firstId, secondId],
                 flippedIds: [],
             };
+
+            if (next.matchedIds.length === TOTAL_PAIR_CARDS) {
+                next = { ...next, status: GAME_STATUS.WON };
+            }
         }
     }
     return next;
@@ -82,7 +88,7 @@ export function gameReducer(state, action) {
     switch (action.type) {
 
         case ACTIONS.NEW_GAME:
-            return createInitialState(action.cards);
+            return createInitialState(action.cards, state.gameId + 1);
 
         case ACTIONS.FLIP_CARD:
             return flipCard(state, action.id);
