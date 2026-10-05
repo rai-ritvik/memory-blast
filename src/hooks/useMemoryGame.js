@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 import {
     ACTIONS,
     GAME_STATUS,
@@ -38,14 +38,14 @@ export function useMemoryGame() {
         return () => clearTimeout(timeoutId);
     }, [flippedIds, status]);
 
-    function flipCard(id) {
+    const flipCard = useCallback((id) => {
         dispatch({ type: ACTIONS.FLIP_CARD, id });
-    }
+    }, []);
 
-    function restart() {
+    const restart = useCallback(() => {
         dispatch({ type: ACTIONS.NEW_GAME, cards: createDeck() });
-    }
-
+    }, []);
+    
     return {
         ...state,
         pairsFound: matchedIds.length / 2,
