@@ -1,6 +1,6 @@
 import Board from "./components/Board";
 import ResultBanner from "./components/ResultBanner";
-import StatsBar from "./components/StatsBar";
+import StatsBar from "./components/StatusBar";
 import {GAME_STATUS} from "./game/constants";
 import {useMemoryGame} from "./hooks/useMemoryGame";
 
@@ -15,7 +15,7 @@ function App() {
           Memory Blast
         </h1>
         <p className="mb-6 mt-2 text-center text-sm text-slate-400">
-          Find all 5 pairs before time runs out.  costs 10 seconds, ⏱ gives 10
+          Find all 5 pairs before time runs out. 💣 costs 10 seconds, ⏱️ gives 10
           back.
         </p>
 

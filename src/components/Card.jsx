@@ -1,4 +1,6 @@
-function Card({ card, isFaceUp, onFlip }) {
+import {memo} from "react";
+
+function Card({card, isFaceUp, onFlip}) {
   return (
     <button
       type="button"
@@ -9,4 +11,4 @@ function Card({ card, isFaceUp, onFlip }) {
     </button>
   );
 }
-export default Card;
+export default memo(Card);
